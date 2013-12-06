@@ -1,0 +1,1 @@
+pileupCalc.py -i JSONs_cert/2012-11-12/myJson8TeV_20121112_total.txt --inputLumiJSON JSONs_pu/pileup_JSON_DCSONLY_190389-206448_corr.txt --calcMode true --minBiasXsec 69400 --maxPileupBin 60 --numPileupBins 60  data12PileUp_true_20121112_r190456-206448.root

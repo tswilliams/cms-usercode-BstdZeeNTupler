@@ -1,0 +1,16 @@
+{
+   Double_t summer2012_DR53X_PUbinContents[62] = { 0.0,
+    
+
+
+    0.0 };  
+
+   TFile* puHistFile = TFile::Open("Summer12DR53XPileUp_true_20121112.root", "CREATE");
+
+   TH1D* summer12PileUpHist_true = new TH1D("Summer12DR53XPileUpHist_true", "Summer12DR53XPileUpHist_true", 60, 0.0, 60.0);
+   summer12PileUpHist_true->SetContent(summer2012_PUbinContents);
+   
+   puHistFile->Write();
+   puHistFile->Close();
+}
+
