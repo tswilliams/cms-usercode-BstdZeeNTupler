@@ -63,6 +63,7 @@ sjlkd
 //...for accessing the muons ...
 #include <DataFormats/MuonReco/interface/Muon.h>
 #include "DataFormats/MuonReco/interface/MuonCocktails.h"
+#include "DataFormats/MuonReco/interface/MuonSelectors.h"
 
 //...for accessing the HLT configuration & trigger decisions
 #include <HLTrigger/HLTcore/interface/HLTConfigProvider.h>
@@ -2739,6 +2740,9 @@ void BstdZeeNTupler::ReadInMuons(bool beVerbose, const edm::Event& edmEvent){
 			else
 				ithMuon.bestTrk_exists = false;
 		}
+
+      // Add whether passed muon high-pT cuts
+      ithMuon.passesHighPt = muon::isHighPtMuon(*imuon, *mainPrimaryVertexIt, reco::improvedTuneP);
 
 		//Printing this information to screen (if desired) ...
 		if(beVerbose){
