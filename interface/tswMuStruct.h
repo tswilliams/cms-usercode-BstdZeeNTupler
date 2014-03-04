@@ -10,8 +10,10 @@ namespace tsw {
    			globTrk_exists(false), globTrk_pT(-999.9), globTrk_eta(-999.9), globTrk_phi(-999.9), globTrk_charge(-999), globTrk_numberOfValidMuonHits(-999), globTrk_normalisedChi2(-999.9),
    			inTrk_exists(false), inTrk_pT(-999.9), inTrk_eta(-999.9), inTrk_phi(-999.9), inTrk_charge(-999), inTrk_numValidPixHits(-999), inTrk_numValidTrkrHits(-999), inTrk_dxyVsOrigin(-999.9), trk_trkrLayersWHits(-999),
    			outTrk_exists(false), outTrk_pT(-999.9), outTrk_eta(-999.9), outTrk_phi(-999.9), outTrk_charge(-999),
-   			bestTrk_exists(false), bestTrk_pT(-999.9), bestTrk_ptError(-999.9), bestTrk_dxy_bspot(-999.9), bestTrk_dxy_vtx(-999.9), bestTrk_dz_vtx(-999.9)
+   			bestTrk_exists(false), bestTrk_pT(-999.9), bestTrk_ptError(-999.9), bestTrk_dxy_bspot(-999.9), bestTrk_dxy_vtx(-999.9), bestTrk_dz_vtx(-999.9),
+            passesHighPt(false)
    		{}
+
    	// General variables ...
    	ROOT::Math::XYZTVector p4;
    	int    charge;
@@ -54,6 +56,9 @@ namespace tsw {
    	double bestTrk_dxy_bspot;
    	double bestTrk_dxy_vtx;
    	double bestTrk_dz_vtx;
+
+      /// Flag for whether or not muon passes high-pT quality cuts
+      bool passesHighPt;
    };
 }
 
