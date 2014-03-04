@@ -36,7 +36,7 @@ options.register ('dyFilter',
                  )
 
 # setup any defaults you want
-options.outputFile  = 'tmp.root'
+options.outputFile  = 'BstdZeeNTuple_53X-vThesisA.root'
 options.inputFiles  = 'file1.root', 'file2.root'
 options.maxEvents   = -1 # -1 means all events
 options.mc          = 0
@@ -100,8 +100,7 @@ datafileLocations = map(DataFileLocationAdaptor,datafilesList)
 process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring(options.inputFiles) )  #, eventsToProcess = cms.untracked.VEventRange("1:49:14420") )
 
 #Defining the output file to store the histograms/NTuples in... 
-process.TFileService = cms.Service("TFileService", fileName=cms.string("BstdZeeNTuple_53X-vThesis1.root"))
-#process.TFileService = cms.Service("TFileService", fileName=cms.string(options.outputFile))
+process.TFileService = cms.Service("TFileService", fileName=cms.string(options.outputFile))
 
 ###################################################################################################
 ## Code for modified isolation values ...
