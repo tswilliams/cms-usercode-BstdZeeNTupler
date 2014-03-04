@@ -36,7 +36,7 @@ options.register ('dyFilter',
                  )
 
 # setup any defaults you want
-options.outputFile  = 'BstdZeeNTuple_53X-vThesisA.root'
+options.outputFile  = 'BstdZeeNTuple_53X-vThesis1_modIsoV000203.root'
 options.inputFiles  = 'file1.root', 'file2.root'
 options.maxEvents   = -1 # -1 means all events
 options.mc          = 0
