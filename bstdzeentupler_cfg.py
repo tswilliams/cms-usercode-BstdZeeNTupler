@@ -2,9 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 #####################################
 # Input flags
-input_isMC = False
 input_is2010SignalMC = False
-input_dyJetsToLLFilter = 0 #==0 =>Don't select events, ==11 =>ele, ==13 =>muon, ==15 =>tau
 
 #####################################################
 ## Useful function for local running...
@@ -24,14 +22,31 @@ import FWCore.ParameterSet.VarParsing as VarParsing
 import os
 
 options = VarParsing.VarParsing ('analysis')
+options.register ('mc',
+				      0,
+				      VarParsing.VarParsing.multiplicity.singleton,
+				      VarParsing.VarParsing.varType.int,
+				      "Flag indicating whether input is data (default, value 0) or MC (=1)"
+                 )
+options.register ('dyFilter',
+				      0,
+				      VarParsing.VarParsing.multiplicity.singleton,
+				      VarParsing.VarParsing.varType.int,
+				      "Flag specifying which subset of DY(ll) events to select ... 0=> don't select ; 11 => ee ; 13 => mumu ; 15 => tautau"
+                 )
 
 # setup any defaults you want
-options.outputFile = 'tmp.root'
-options.inputFiles = 'file1.root', 'file2.root'
-options.maxEvents  = -1 # -1 means all events
+options.outputFile  = 'tmp.root'
+options.inputFiles  = 'file1.root', 'file2.root'
+options.maxEvents   = -1 # -1 means all events
+options.mc          = 0
+options.dyFilter    = 0
 
 # get and parse the command line arguments
 options.parseArguments()
+assert options.mc == 0 or options.mc == 1 , 'ERROR : Command line args: Incorrect value {0} for "mc"'.format(options.mc)
+assert options.dyFilter in [0, 11, 13, 15], 'ERROR : Command line args: Incorrect value {0} for "dyFilter"'.format(options.dyFilter)
+
 
 ## Act appropriately if 1st specified inputFile is a directory
 if os.path.isdir(options.inputFiles[0]) or os.path.isdir('/pnfs/pp.rl.ac.uk/data/cms/'+options.inputFiles[0]):
@@ -75,7 +90,7 @@ process.MessageLogger.cerr.LHEInterface = cms.untracked.PSet(limit = cms.untrack
 process.MessageLogger.cerr.FwkReport.reportEvery = 5000
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxEvents) )
 
-#Reading in a list of datafile locations from a file...
+# Reading in a list of datafile locations from a file...
 fileName_DatafileList = "/home/ppd/nnd85574/FileLocations/BstdZee/Boosted_Quark_To_ee_2TeV/tsw-bstd412Recon_2-00TeVu_v2-c17b3790b1be6b1dd249df112816fe9d/USER/fileList.txt"
 f_DatafileList = open(fileName_DatafileList)
 datafilesList = f_DatafileList.readlines()
@@ -85,7 +100,7 @@ datafileLocations = map(DataFileLocationAdaptor,datafilesList)
 process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring(options.inputFiles) )  #, eventsToProcess = cms.untracked.VEventRange("1:49:14420") )
 
 #Defining the output file to store the histograms/NTuples in... 
-process.TFileService = cms.Service("TFileService", fileName=cms.string("BstdZeeNTuple_53X-v2pre4.root"))
+process.TFileService = cms.Service("TFileService", fileName=cms.string("BstdZeeNTuple_53X-vThesis1.root"))
 #process.TFileService = cms.Service("TFileService", fileName=cms.string(options.outputFile))
 
 ###################################################################################################
@@ -351,10 +366,12 @@ process.kt6PFJets.Rho_EtaMax = cms.double(2.5)
 ####################################################################################################
 ## Calling the NTupler , and defining sequence for running modules ...
 process.demo = cms.EDAnalyzer('BstdZeeNTupler',
-                              dyJetsToLL_EventType = cms.untracked.int32(input_dyJetsToLLFilter), #==0=>Don't select events, ==11=>ele, ==13=>muon, ==15=>tau
-                              isMC = cms.untracked.bool(input_isMC),
+                              dyJetsToLL_EventType = cms.untracked.int32(options.dyFilter), #==0=>Don't select events, ==11=>ele, ==13=>muon, ==15=>tau
+                              isMC = cms.untracked.bool(bool(options.mc)),
                               printOutInfo = cms.untracked.bool(False), 
-                              readInNormReco = cms.untracked.bool(True), readInBstdReco = cms.untracked.bool(False), readInTrigInfo = cms.untracked.bool(True),
+                              readInNormReco = cms.untracked.bool(True), 
+                              readInBstdReco = cms.untracked.bool(False),
+                              readInTrigInfo = cms.untracked.bool(True),
                               eleCollection = cms.untracked.InputTag("gsfElectrons"),
                               useReducedRecHitsCollns = cms.untracked.bool(True) ,
                               is2010SignalDataset = cms.untracked.bool(input_is2010SignalMC),
