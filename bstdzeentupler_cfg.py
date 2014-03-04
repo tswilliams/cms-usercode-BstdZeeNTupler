@@ -367,7 +367,7 @@ process.demo = cms.EDAnalyzer('BstdZeeNTupler',
                                                                             "HLT_Mu8_Ele17_CaloIdT_CaloIsoVL_v[478]",
                                                                             "HLT_Mu15_Photon20_CaloIdL_v[1-9]"),
                               puDists_mcFile       = cms.untracked.string("Summer12DR53XPileUp_true_20121112.root"),
-                              puDists_dataFile     = cms.untracked.string("data12PileUp_true_20121221_r190456-208686.root"),
+                              puDists_dataFile     = cms.untracked.string("data12PileUp_true_20140304_All.root"),
                               puDists_mcHistName   = cms.untracked.string("Summer12DR53XPileUpHist_true"),
                               puDists_dataHistName = cms.untracked.string("pileup")
      ) 
