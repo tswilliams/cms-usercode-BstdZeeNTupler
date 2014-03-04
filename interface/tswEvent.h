@@ -160,7 +160,7 @@ namespace tsw{
 	   	std::vector<Double_t> normMuons_bestTrk_dxy_vtx_;
 	   	std::vector<Double_t> normMuons_bestTrk_dz_vtx_;
 
-			ClassDef(tsw::Event, 17);
+			ClassDef(tsw::Event, 18);
 	};
 }
 
