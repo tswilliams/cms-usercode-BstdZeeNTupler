@@ -90,12 +90,12 @@ process.MessageLogger.cerr.LHEInterface = cms.untracked.PSet(limit = cms.untrack
 process.MessageLogger.cerr.FwkReport.reportEvery = 5000
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxEvents) )
 
-# Reading in a list of datafile locations from a file...
-fileName_DatafileList = "/home/ppd/nnd85574/FileLocations/BstdZee/Boosted_Quark_To_ee_2TeV/tsw-bstd412Recon_2-00TeVu_v2-c17b3790b1be6b1dd249df112816fe9d/USER/fileList.txt"
-f_DatafileList = open(fileName_DatafileList)
-datafilesList = f_DatafileList.readlines()
-f_DatafileList.close()
-datafileLocations = map(DataFileLocationAdaptor,datafilesList)
+## Reading in a list of datafile locations from a file...
+#fileName_DatafileList = "/home/ppd/nnd85574/FileLocations/BstdZee/Boosted_Quark_To_ee_2TeV/tsw-bstd412Recon_2-00TeVu_v2-c17b3790b1be6b1dd249df112816fe9d/USER/fileList.txt"
+#f_DatafileList = open(fileName_DatafileList)
+#datafilesList = f_DatafileList.readlines()
+#f_DatafileList.close()
+#datafileLocations = map(DataFileLocationAdaptor,datafilesList)
 
 process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring(options.inputFiles) )  #, eventsToProcess = cms.untracked.VEventRange("1:49:14420") )
 
